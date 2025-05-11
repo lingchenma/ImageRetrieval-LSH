@@ -93,7 +93,8 @@ class AntiFraudFeatureDataset():
         print('>> database images...')
         images = ImageProcess(self.img_dir).process()
         vecs, img_paths = extract_vectors(net, images, 1024, transform, ms=ms)
-        feature_dict = dict(zip(img_paths, list(vecs.detach().cpu().numpy().T)))
+        img_paths_tep = [str(p) for p in img_paths]
+        feature_dict = dict(zip(img_paths_tep, list(vecs.detach().cpu().numpy().T)))
         # index
         lsh = LSHash(hash_size=int(hash_size), input_dim=int(input_dim), num_hashtables=int(num_hashtables))
         for img_path, vec in feature_dict.items():
@@ -152,7 +153,8 @@ class AntiFraudFeatureDataset():
         print('>> database images...')
         images = ImageProcess(self.img_dir).process()
         vecs, img_paths = extract_vectors(net, images, 1024, transform, ms=ms)
-        feature_dict = dict(zip(img_paths, list(vecs.detach().cpu().numpy().T)))
+        img_paths_tep = [str(p) for p in img_paths]
+        feature_dict = dict(zip(img_paths_tep, list(vecs.detach().cpu().numpy().T)))
         return feature_dict
 
 

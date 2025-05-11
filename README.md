@@ -1,30 +1,32 @@
-# 图像检索模型
+# 基于LSH的局部敏感hash模型
 
-## 1.模型介绍
-    --技术：深度卷积神经网络技术、LSH局部敏感哈希算法、flask web端部署、nts细粒度分类技术
+## 环境配置
 
-## 2.预训练模型
-    --图像分类预训练模型：https://drive.google.com/file/d/1F-eKqPRjlya5GH2HwTlLKNSPEUaxCu9H/view?usp=sharing
-    --图像检索预训练模型：http://cmp.felk.cvut.cz/cnnimageretrieval/data/whiten/retrieval-SfM-120k/retrieval-SfM-120k-vgg16-gem-r-rwhiten-19b204e.pth
-        resnet50 http://cmp.felk.cvut.cz/cnnimageretrieval/data/networks/gl18/gl18-tl-resnet50-gem-w-83fdc30.pth
+```
+conda create -n imageretrieval_lsh python=3.8 -y
+conda activate imageretrieval_lsh
 
-## 3.数据集
-    --生产上数据集进行迁移学习并查重
-   
-## 4.数据预处理
-    数据大小处理为（224*224）
-    --筛选出tiff、tif等格式文件，并解决pillow的底层问题（opencv解决conver（“RGB”）问题）
-    --数据分类筛选：采用nts网络进行细粒度分类
-    
-## 5.模型业务使用
-    --分类：python utils/classify.py
-    --特征提取：python utils/retrieval_feature.py
-    --图像离线检索：python utils/retrieval_index.py
-    --在线部署：python interface.py (采用flask框架部署，同时离线更新数据库)
-              python app_test.py (测试接口)
-       
-## 6.指标
-    --map：0.93
-    
+pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
 
-  
+pip install -r requirements.txt
+```
+
+## 数据和模型
+模型下载路径：
+http://cmp.felk.cvut.cz/cnnimageretrieval/data/networks/gl18/gl18-tl-resnet50-gem-w-83fdc30.pth
+
+模型放置路径为weights文件夹下即可（自行创建）
+
+数据下载路径：
+https://www.kaggle.com/datasets/dansbecker/food-101
+
+其中数据集中含有训练集和测试集描述，如果内存足够可选择全部数据集，不够的话可选择部分数据集（训练集为索引数据库，测试集为待索引图像即可）
+
+
+## 运行
+
+参考
+
+```
+python demo.py
+```

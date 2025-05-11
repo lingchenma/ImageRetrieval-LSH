@@ -12,7 +12,6 @@ from cirtorch.layers.normalization import L2N, PowerLaw
 from cirtorch.datasets.genericdataset import ImagesFromList
 from cirtorch.utils.general import get_data_root
 from PIL import Image
-from ModelHelper.Common.CommonUtils.ImageAugmentation import Padding
 import cv2
 
 # for some models, we have imported features (convolutions) from caffe because the image retrieval performance is higher for them
