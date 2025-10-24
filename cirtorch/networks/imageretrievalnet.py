@@ -166,7 +166,11 @@ def init_network(params):
             net_in = getattr(torchvision.models, architecture)(pretrained=False)
     else:
         # initialize with random weights
-        net_in = getattr(torchvision.models, architecture)(pretrained=False)
+        torch_version = torchvision.__version__.split("+")[0].split(".")
+        if (int(torch_version[0]) <= 0 and int(torch_version[1]) <= 13):
+            net_in = getattr(torchvision.models, architecture)(pretrained=False)
+        else:
+            net_in = getattr(torchvision.models, architecture)(weights=None)
 
     # initialize features
     # take only convolutions for features,
